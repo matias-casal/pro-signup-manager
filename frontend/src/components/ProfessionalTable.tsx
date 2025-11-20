@@ -126,7 +126,7 @@ export function ProfessionalTable({ data, onOpenResume }: Props) {
               className="hover:bg-slate-50/50 transition-colors animate-fade-in"
               style={{ animationDelay: `${index * 30}ms` }}
             >
-              <td className="px-5 py-3 max-w-[350px]">
+              <td className="px-5 py-3 max-w-[260px]">
                 <div className="flex items-center gap-3">
                   <div className={`avatar flex-shrink-0 ${avatarColors[prof.source]}`}>
                     {getInitials(prof.full_name, prof.email)}
@@ -135,16 +135,20 @@ export function ProfessionalTable({ data, onOpenResume }: Props) {
                     <div className="font-medium text-slate-900 truncate" title={prof.full_name}>
                       {prof.full_name || "—"}
                     </div>
-                    {prof.company_name && (
-                      <div className="text-xs text-slate-500 truncate">{prof.company_name}</div>
-                    )}
-                    {prof.job_title && (
-                      <div className="text-xs text-slate-500 truncate">{prof.job_title}</div>
-                    )}
                   </div>
                 </div>
               </td>
               <td className="px-5 py-3 max-w-[200px]">
+                <div className="text-sm text-slate-900 truncate" title={prof.company_name || undefined}>
+                  {prof.company_name || "—"}
+                </div>
+              </td>
+              <td className="px-5 py-3 max-w-[200px]">
+                <div className="text-sm text-slate-900 truncate" title={prof.job_title || undefined}>
+                  {prof.job_title || "—"}
+                </div>
+              </td>
+              <td className="px-5 py-3 max-w-[240px]">
                 <div className="space-y-0.5 min-w-0">
                   {prof.email && (
                     <div className="text-sm text-slate-900 truncate" title={prof.email}>{prof.email}</div>

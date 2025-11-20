@@ -4,8 +4,6 @@
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 ![Docker](https://img.shields.io/badge/Docker-Compose-blue)
 ![Stack](https://img.shields.io/badge/Stack-Django%20%7C%20React%20%7C%20Postgres-informational)
-![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)
-
 A robust, full-stack prototype designed to unify professional sign-ups from multiple sources. This solution moves beyond a basic implementation to focus on **scalability**, **data integrity**, and **security**, utilizing a production-grade architecture with an Nginx API Gateway.
 
 ---
@@ -155,6 +153,14 @@ To ensure reliability, I would integrate:
   * **Sentry:** For real-time error tracking.
   * **Prometheus/Grafana:** To monitor API latency and partial success rates of the Bulk endpoint.
   * **Structured Logging:** Converting Django logs to JSON format for easier parsing in tools like Datadog or ELK.
+
+### 4. Testing & Coverage
+
+Aim for near-100% automated coverage (backend + frontend), including edge cases for bulk 207 responses, resume validation paths, and UI flows for filtering, bulk imports, and resume viewing.
+
+### 5. Directory scalability
+
+Support paginated or infinite-scroll loading for the professionals list to avoid over-fetching on large datasets, and consider a dedicated stats endpoint (or removal of in-page counters) so aggregate metrics don’t require loading all records.
 
 -----
 
