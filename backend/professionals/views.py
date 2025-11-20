@@ -4,18 +4,26 @@ from typing import Dict, List
 
 from django.core.exceptions import ValidationError
 from django.db.models import Q
-from rest_framework import status, viewsets
-from rest_framework.exceptions import ValidationError as DRFValidationError
+from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.response import Response
 
 from .models import Professional
 from .serializers import ProfessionalSerializer
 
 
-class ProfessionalViewSet(viewsets.ModelViewSet):
+class ProfessionalViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    Restrict surface to required endpoints:
+    - GET /api/professionals/?source=
+    - POST /api/professionals/
+    - POST /api/professionals/bulk/
+    """
+
     queryset = Professional.objects.all().order_by("-created_at")
     serializer_class = ProfessionalSerializer
+    http_method_names = ["get", "post", "head", "options"]
 
     def get_queryset(self):
         queryset = super().get_queryset()

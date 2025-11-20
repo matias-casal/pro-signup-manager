@@ -21,11 +21,28 @@ function App() {
   const [bulkKey, setBulkKey] = useState(0);
   const [toast, setToast] = useState<Toast | null>(null);
   const [resumeViewer, setResumeViewer] = useState<Professional | null>(null);
-  const { data: allData, isLoading } = useProfessionals();
+
+  // Base dataset pulled once for stats and "all" view.
+  const { data: allData, isLoading: isLoadingAll, isFetching: isFetchingAll } = useProfessionals();
+  // Filtered dataset fetched from the server only when a source is selected.
+  const {
+    data: filteredData,
+    isLoading: isLoadingFiltered,
+    isFetching: isFetchingFiltered,
+  } = useProfessionals(
+    sourceFilter === "all" ? undefined : (sourceFilter as ProfessionalSource),
+    { enabled: sourceFilter !== "all" }
+  );
 
   const professionals = Array.isArray(allData) ? allData : [];
-  const filteredProfessionals =
-    sourceFilter === "all" ? professionals : professionals.filter(p => p.source === sourceFilter);
+  const tableData =
+    sourceFilter === "all"
+      ? professionals
+      : Array.isArray(filteredData)
+        ? filteredData
+        : [];
+  const isListingLoading =
+    sourceFilter === "all" ? isLoadingAll || isFetchingAll : isLoadingFiltered || isFetchingFiltered;
 
   const handleBulkDialogClose = () => {
     setBulkDialogOpen(false);
@@ -133,19 +150,19 @@ function App() {
               <div>
                 <h2 className="text-lg font-semibold text-slate-900">Directory</h2>
                 <p className="text-sm text-slate-500 mt-0.5">
-                  {isLoading ? "Loading..." : `${filteredProfessionals.length} professionals`}
+                  {isListingLoading ? "Loading..." : `${tableData.length} professionals`}
                 </p>
               </div>
               <FilterDropdown value={sourceFilter} onChange={setSourceFilter} />
             </div>
           </div>
           <div className="p-0">
-            {isLoading ? (
+            {isListingLoading ? (
               <div className="flex items-center justify-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : (
-              <ProfessionalTable data={filteredProfessionals} onOpenResume={setResumeViewer} />
+              <ProfessionalTable data={tableData} onOpenResume={setResumeViewer} />
             )}
           </div>
         </div>

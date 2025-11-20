@@ -66,6 +66,7 @@ export function BulkUploadPanel() {
   const [result, setResult] = useState<BulkUpsertResponse | null>(null);
   const [submittedEntries, setSubmittedEntries] = useState<SubmittedEntry[]>([]);
   const [showErrors, setShowErrors] = useState(true);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const { control, register, formState, reset, getValues, trigger } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -87,10 +88,18 @@ export function BulkUploadPanel() {
       job_title: entry.job_title || undefined,
       source: entry.source as ProfessionalSource,
     }));
+    setSubmitError(null);
     setSubmittedEntries(payload);
-    const response = await mutateAsync(payload);
-    setResult(response);
-    setShowErrors(true);
+    try {
+      const response = await mutateAsync(payload);
+      setResult(response);
+      setShowErrors(true);
+    } catch (error) {
+      setResult(null);
+      const message =
+        error instanceof Error ? error.message : "Bulk import failed. Please try again.";
+      setSubmitError(message);
+    }
   };
 
   const submitAll = async (event?: FormEvent) => {
@@ -204,6 +213,11 @@ export function BulkUploadPanel() {
   return (
     <div className="space-y-4">
       <form className="space-y-3" onSubmit={submitAll}>
+        {submitError && (
+          <div className="p-3 bg-red-50 border border-red-100 rounded-lg text-sm text-red-700">
+            {submitError}
+          </div>
+        )}
         <div className="space-y-3 max-h-80 overflow-y-auto pr-1">
           {fields.map((field, index) => (
             <div

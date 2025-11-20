@@ -14,7 +14,7 @@ export interface ProfessionalPayload {
 
 const PROFESSIONALS_QUERY_KEY = ["professionals"] as const;
 
-export const useProfessionals = (source?: ProfessionalSource) => {
+export const useProfessionals = (source?: ProfessionalSource, options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: [...PROFESSIONALS_QUERY_KEY, source ?? "all"],
     queryFn: async () => {
@@ -22,6 +22,7 @@ export const useProfessionals = (source?: ProfessionalSource) => {
       const response = await api.get<Professional[]>("/professionals/", { params });
       return response.data;
     },
+    enabled: options?.enabled ?? true,
   });
 };
 

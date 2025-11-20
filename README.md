@@ -4,7 +4,6 @@
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 ![Docker](https://img.shields.io/badge/Docker-Compose-blue)
 ![Stack](https://img.shields.io/badge/Stack-Django%20%7C%20React%20%7C%20Postgres-informational)
-
 A robust, full-stack prototype designed to unify professional sign-ups from multiple sources. This solution moves beyond a basic implementation to focus on **scalability**, **data integrity**, and **security**, utilizing a production-grade architecture with an Nginx API Gateway.
 
 ---
