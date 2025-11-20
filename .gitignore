@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+.env
+.env.*
+*.log
+/backend/.pytest_cache/
+/backend/.mypy_cache/
+/frontend/dist/
+/staticfiles/
+/media/
+node_modules/
+.DS_Store
+.vscode/
+.idea/

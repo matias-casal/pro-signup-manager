@@ -1,0 +1,11 @@
+full_name,email,phone,company_name,job_title,source
+Ana Lopez,ana@example.com,,Acme Corp,Analyst,direct
+Bruno Silva,bruno@example.com,+1 202 555 0101,PartnerCo,Consultant,partner
+Carla Mendez,carla@example.com,,Acme Corp,Designer,internal
+Diego Ruiz,druiz@example.com,+1 202 555 0193,DataHub,Engineer,direct
+Eva Gomez,eva@example.com,+1 202 555 0142,Allied Inc,Manager,partner
+Fran Marin,fran@example.com,,DataHub,Recruiter,internal
+Gina Suarez,gina@example.com,+1 202 555 0188,Designo,Lead,partner
+Hugo Diaz,hugo@example.com,,Acme Corp,Coordinator,direct
+Iris Fernandez,iris@example.com,+1 202 555 0165,LatamSoft,CTO,partner
+Juan Perez,juan@example.com,,Acme Corp,Product Owner,internal
